@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('title', 255).notNullable()
       table.string('desc', 255).notNullable()
-      table.boolean('done').default(false)
+      table.boolean('done').defaultTo(false)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

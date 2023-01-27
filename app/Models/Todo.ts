@@ -5,6 +5,15 @@ export default class Todo extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public title: string
+
+  @column()
+  public desc: string
+
+  @column()
+  public done: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
