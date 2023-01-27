@@ -21,12 +21,12 @@ export default class TodosController {
         }
     }
     
-    public async update({ auth, request, params}: HttpContextContract)
+    public async update({auth, request, params}: HttpContextContract)
     {
         const todo = await Todo.find(params.id);
         if (todo) {
             todo.title = request.input('title');
-            todo.content = request.input('desc');
+            todo.desc = request.input('desc');
             todo.done = request.input('done')
             
             if (await todo.save()) {
@@ -37,19 +37,18 @@ export default class TodosController {
         return; // 401
     }
     
-    public async store({ auth request, response}: HttpContextContract)
+    public async store({auth, request, response}: HttpContextContract)
     {
         const user = await auth.authenticate();
         const todo = new Todo();
         todo.title = request.input('title');
         todo.desc = request.input('desc');
-        await todo.save(todo)
+        await todo.save()
         return todo
     }
     
     public async destroy({response, auth, request, params}: HttpContextContract)
     {
-        const user = await auth.authenticate();
         const todo = await Todo.query().where('id', params.id).delete();
         return response.json({message:"Deleted successfully"})
     }
